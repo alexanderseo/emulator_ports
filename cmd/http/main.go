@@ -18,7 +18,7 @@ func main() {
 }
 
 func run() error {
-	c, err := configs.New()
+	c, err := configs.NewConfig()
 	if err != nil {
 		return err
 	}
@@ -34,11 +34,11 @@ func run() error {
 	serverHandler := adapter.New(l, storagePorts)
 	http.Handle("/read", util.RateLimiter(l, serverHandler.Read))
 	http.Handle("/write", util.RateLimiter(l, serverHandler.Write))
+	log.Println("Server listening on port :8080")
 	err = http.ListenAndServe(c.Http.Port, nil)
 	if err != nil {
 		log.Println("There was an error listening on port :8080", err)
 	}
-	log.Println("Server listening on port :8080")
 
 	return nil
 }

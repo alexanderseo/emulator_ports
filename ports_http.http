@@ -1,0 +1,41 @@
+### 1 Test Read port
+GET http://localhost:8080/read
+### 2 Test Read port
+GET http://localhost:8080/read
+### 3 Test Read port
+GET http://localhost:8080/read
+### 4 Test Read port
+GET http://localhost:8080/read
+### 5 Test Read port
+GET http://localhost:8080/read
+### 6 Test Read port
+GET http://localhost:8080/read
+### 7 Test Read port
+GET http://localhost:8080/read
+### 8 Test Read port
+GET http://localhost:8080/read
+### 9 Test Read port
+GET http://localhost:8080/read
+### 10 Test Read port
+GET http://localhost:8080/read
+### 11 Test Read port
+GET http://localhost:8080/read
+### 12 Test Read port
+GET http://localhost:8080/read
+### 13 Test Read port
+GET http://localhost:8080/read
+### 14 Test Read port
+GET http://localhost:8080/read
+### 15 Test Read port
+GET http://localhost:8080/read
+
+### 1 Test Write port
+GET http://localhost:8080/write
+### 2 Test Write port
+GET http://localhost:8080/write
+### 3 Test Write port
+GET http://localhost:8080/write
+### 4 Test Write port
+GET http://localhost:8080/write
+### 5 Test Write port
+GET http://localhost:8080/write

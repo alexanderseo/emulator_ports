@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package emulator_ports;
+import "google/protobuf/empty.proto";
+option go_package = "ports-server/pkg/api/grpc";
+
+service EmulatorPorts {
+  rpc Read(google.protobuf.Empty) returns (Answer);
+  rpc Write(google.protobuf.Empty) returns (Answer);
+}
+
+message Answer {
+  int64 number = 1;
+  int64 value = 2;
+}

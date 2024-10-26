@@ -5,3 +5,12 @@ IN:
   COUNT: 15
 OUT:
   COUNT: 3
+GRPC:
+  HOST: "localhost"
+  PORT: "50051"
+  TIMEOUT: 30000
+  RECEIVE: 1073741824
+  SEND: 1073741824
+LOGGER:
+  ENVIRONMENT: "development"
+  LEVEL: "debug"

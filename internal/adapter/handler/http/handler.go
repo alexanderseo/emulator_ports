@@ -2,12 +2,13 @@ package adapter
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 
 	repository "ports-server/internal/adapter/repository/in"
 	"ports-server/internal/core/domain/dto"
-	"ports-server/internal/core/domain/model"
 )
 
 type ServerHttp struct {
@@ -20,28 +21,27 @@ func New(l *log.Logger, r *repository.StorageIn) *ServerHttp {
 }
 
 func (s *ServerHttp) Read(writer http.ResponseWriter, request *http.Request) {
-	// Приложению указали, сколько портов IN будет изначально
-	// когда просят метод read(1) - он отдает рандомное значение из первого порта
-	// когда просят метод read(2) - он отдает рандомное значение из второго порта
-	// когда просят read(3) и если такого порта нет, то отдаем ответ, что порт не доступен
-	// значит надо инициализировать порты в том количестве, в каком они указаны при запуске программы
 	s.l.Println("Handle Read request")
-	var dataIn *model.In
-	ports := s.r.DataIn
-	if ports == nil {
+	if s.r.DataIn == nil {
 		s.l.Println("Нет портов IN")
 		return
 	}
-	for k, v := range ports {
-		s.l.Panicf("k: %v, v: %v", k, v)
-		if k == 1 {
-			dataIn = v
+	type dataIn struct {
+		Number int
+		Value  int
+	}
+	var in dataIn
+	for k, v := range s.r.DataIn {
+		s.l.Printf("Range - k: %v, v: %v", k, v)
+		in = dataIn{
+			Number: v.Number,
+			Value:  v.Value,
 		}
 		break
 	}
 	answer := dto.Answer{
-		Number: dataIn.Number,
-		Value:  dataIn.Value,
+		Number: in.Number,
+		Value:  in.Value,
 	}
 
 	writer.Header().Set("Content-Type", "application/json")
@@ -49,8 +49,45 @@ func (s *ServerHttp) Read(writer http.ResponseWriter, request *http.Request) {
 
 	err := json.NewEncoder(writer).Encode(&answer)
 	if err != nil {
+		s.l.Println("Error encode in Handler Read")
 		return
 	}
 }
 
-func (s *ServerHttp) Write(writer http.ResponseWriter, request *http.Request) {}
+func (s *ServerHttp) Write(writer http.ResponseWriter, request *http.Request) {
+	s.l.Println("Handle Write request")
+	if s.r.DataOut == nil {
+		s.l.Println("Нет портов OUT")
+		return
+	}
+
+	type dataOut struct {
+		Number int
+		Value  int
+	}
+	var out dataOut
+	for k, v := range s.r.DataOut {
+		s.l.Printf("Range k: %v, v: %v", k, v)
+		out = dataOut{
+			Number: v.Number,
+			Value:  rand.Int(),
+		}
+		break
+	}
+	answer := dto.Answer{
+		Number: out.Number,
+		Value:  out.Value,
+	}
+
+	s.l.Printf("Port Number: %v, Port Value: %v", answer.Number, answer.Value)
+	fmt.Printf("Port Number: %v, Port Value: %v \n", answer.Number, answer.Value)
+
+	writer.Header().Set("Content-Type", "application/json")
+	writer.WriteHeader(http.StatusOK)
+
+	err := json.NewEncoder(writer).Encode(&answer)
+	if err != nil {
+		s.l.Println("Error encode in Handler Write")
+		return
+	}
+}
