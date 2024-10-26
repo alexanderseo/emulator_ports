@@ -1,0 +1,7 @@
+HTTP:
+  HOST: "localhost"
+  PORT: ":8080"
+IN:
+  COUNT: 15
+OUT:
+  COUNT: 3
