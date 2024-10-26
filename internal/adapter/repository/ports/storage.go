@@ -7,13 +7,13 @@ import (
 	"math/rand"
 )
 
-type StorageIn struct {
+type StoragePorts struct {
 	c       *configs.Config
 	DataIn  map[int]*model.In
 	DataOut map[int]*model.Out
 }
 
-func NewStorageIn(c *configs.Config) *StorageIn {
+func NewStorageIn(c *configs.Config) *StoragePorts {
 	dataIn := make(map[int]*model.In, c.In.Count)
 	dataOut := make(map[int]*model.Out, c.Out.Count)
 	if c.In.Count > 0 {
@@ -31,7 +31,7 @@ func NewStorageIn(c *configs.Config) *StorageIn {
 			}
 		}
 	}
-	return &StorageIn{
+	return &StoragePorts{
 		c:       c,
 		DataIn:  dataIn,
 		DataOut: dataOut,

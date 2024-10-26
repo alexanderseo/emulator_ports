@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/emptypb"
 	service "ports-server/internal/core/service/grpc"
-	"ports-server/pkg/api/grpc"
+	grpc "ports-server/pkg/api/grpc"
 )
 
 type ServerGRPC struct {
@@ -27,10 +27,22 @@ func NewServerGRPC(
 
 func (s *ServerGRPC) Read(ctx context.Context, in *emptypb.Empty) (*grpc.Answer, error) {
 	answer, err := s.portsLogic.Read(ctx)
-	return nil, nil
+	if err != nil {
+		return nil, err
+	}
+	return &grpc.Answer{
+		Number: int64(answer.Number),
+		Value:  int64(answer.Value),
+	}, nil
 }
 
 func (s *ServerGRPC) Write(ctx context.Context, in *emptypb.Empty) (*grpc.Answer, error) {
-
-	return nil, nil
+	answer, err := s.portsLogic.Write(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &grpc.Answer{
+		Number: int64(answer.Number),
+		Value:  int64(answer.Value),
+	}, nil
 }

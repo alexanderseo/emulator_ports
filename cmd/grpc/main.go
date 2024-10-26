@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc/keepalive"
 	"ports-server/configs"
 	adapter "ports-server/internal/adapter/handler/grpc"
-	repository "ports-server/internal/adapter/repository/in"
+	repository "ports-server/internal/adapter/repository/ports"
 	service "ports-server/internal/core/service/grpc"
 	"ports-server/internal/core/util"
 	grpc2 "ports-server/pkg/api/grpc"

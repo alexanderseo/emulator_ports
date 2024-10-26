@@ -51,7 +51,7 @@ func ErrorField(err error) *Field {
 	}
 }
 
-func New(c *configs.ConfigGRPC) (*Logger, error) {
+func New(c *configs.Config) (*Logger, error) {
 	l, err := getLogger(c)
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func New(c *configs.ConfigGRPC) (*Logger, error) {
 		nil
 }
 
-func getLogger(c *configs.ConfigGRPC) (*zap.Logger, error) {
+func getLogger(c *configs.Config) (*zap.Logger, error) {
 	var err error
 	var l *zap.Logger
 	loggerEnvironment := ToLoggerEnvironment(c.LoggerConfig.Environment)

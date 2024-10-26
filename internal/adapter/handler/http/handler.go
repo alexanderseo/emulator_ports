@@ -7,16 +7,16 @@ import (
 	"math/rand"
 	"net/http"
 
-	repository "ports-server/internal/adapter/repository/in"
+	repository "ports-server/internal/adapter/repository/ports"
 	"ports-server/internal/core/domain/dto"
 )
 
 type ServerHttp struct {
 	l *log.Logger
-	r *repository.StorageIn
+	r *repository.StoragePorts
 }
 
-func New(l *log.Logger, r *repository.StorageIn) *ServerHttp {
+func New(l *log.Logger, r *repository.StoragePorts) *ServerHttp {
 	return &ServerHttp{l: l, r: r}
 }
 

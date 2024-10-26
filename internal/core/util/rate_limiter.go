@@ -24,7 +24,10 @@ func RateLimiter(l *log.Logger, next func(w http.ResponseWriter, r *http.Request
 			}
 
 			w.WriteHeader(http.StatusTooManyRequests)
-			json.NewEncoder(w).Encode(&message)
+			err := json.NewEncoder(w).Encode(&message)
+			if err != nil {
+				return
+			}
 			return
 		} else {
 			next(w, r)

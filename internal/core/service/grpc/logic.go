@@ -2,9 +2,10 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/pkg/errors"
-	repository "ports-server/internal/adapter/repository/in"
+	repository "ports-server/internal/adapter/repository/ports"
 	"ports-server/internal/core/domain/dto"
 	"ports-server/internal/core/util"
 )
@@ -16,10 +17,10 @@ type PortsLogicTester interface {
 
 type PortsLogic struct {
 	l *util.Logger
-	r *repository.StorageIn
+	r *repository.StoragePorts
 }
 
-func NewPortsLogic(l *util.Logger, r *repository.StorageIn) *PortsLogic {
+func NewPortsLogic(l *util.Logger, r *repository.StoragePorts) *PortsLogic {
 	return &PortsLogic{
 		l: l,
 		r: r,
@@ -51,5 +52,25 @@ func (p *PortsLogic) Read(ctx context.Context) (*dto.AnswerOut, error) {
 }
 
 func (p *PortsLogic) Write(ctx context.Context) (*dto.AnswerOut, error) {
-	return nil, nil
+	if p.r.DataOut == nil {
+		p.l.ErrorCtx(ctx, "Нет портов IN")
+		return nil, errors.New("Нет портов IN")
+	}
+	type dataOut struct {
+		Number int
+		Value  int
+	}
+	var out dataOut
+	for _, v := range p.r.DataOut {
+		out = dataOut{
+			Number: v.Number,
+			Value:  v.Value,
+		}
+		break
+	}
+	fmt.Printf("Port Number: %v, Port Value: %v \n", out.Number, out.Value)
+	return &dto.AnswerOut{
+		Number: out.Number,
+		Value:  out.Value,
+	}, nil
 }

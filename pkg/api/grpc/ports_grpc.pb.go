@@ -4,7 +4,7 @@
 // - protoc             v4.23.2
 // source: ports.proto
 
-package grpc
+package ports
 
 import (
 	context "context"

@@ -1,0 +1,11 @@
+### Тест метода Read в grpc
+GRPC localhost:50051/emulator_ports.EmulatorPorts/Read
+
+{
+}
+
+### Тест метода Write в grpc
+GRPC localhost:50051/emulator_ports.EmulatorPorts/Write
+
+{
+}

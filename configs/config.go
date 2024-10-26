@@ -21,7 +21,7 @@ type Config struct {
 		Port           string `yaml:"PORT" env:"GRPC_PORT" env-description:"GRPC PORT" env-default:"50051"`
 		Timeout        int    `yaml:"TIMEOUT" env:"GRPC_CONTEXT_TIMEOUT" env-description:"GRPC CONTEXT TIMEOUT" env-default:"30000"`
 		MaxGrpcReceive int    `yaml:"RECEIVE" env:"MAX_GRPC_RECEIVE" env-description:"MAX GRPC RECEIVE" env-default:"1073741824"`
-		MaxGrpcSend    int    `yaml:"RECEIVE" env:"MAX_GRPC_RECEIVE" env-description:"MAX GRPC RECEIVE" env-default:"1073741824"`
+		MaxGrpcSend    int    `yaml:"SEND" env:"MAX_GRPC_SEND" env-description:"MAX GRPC SEND" env-default:"1073741824"`
 	} `yaml:"GRPC"`
 	LoggerConfig struct {
 		Environment string `yaml:"ENVIRONMENT" env:"LOGGER_ENVIRONMENT"`

@@ -7,7 +7,7 @@ import (
 
 	"ports-server/configs"
 	adapter "ports-server/internal/adapter/handler/http"
-	repository "ports-server/internal/adapter/repository/in"
+	repository "ports-server/internal/adapter/repository/ports"
 	"ports-server/internal/core/util"
 )
 
